@@ -1,0 +1,45 @@
+import { ComboBox, Switch } from "std-widgets.slint";
+import "7segment.ttf";
+export component AppWindow inherits Window {
+    in property <string> timecode: "00:00:00:00";
+    in property <string> status: "Idle";
+    in property <string> fr: "0";
+    in property <[string]> interfaces: [];
+    callback set_interface(value: int);
+    callback set_listen(value: bool);
+    VerticalLayout {
+        padding: 10px;
+        spacing: 10px;
+        HorizontalLayout {
+            spacing: 10px;
+            max-height: 50px;
+            ComboBox {
+                model: root.interfaces;
+                selected(index) => {
+                    root.set_interface(self.current-index);
+                }
+            }
+            Switch {
+                text: "Listen";
+                toggled => {
+                    root.set_listen(self.checked);
+                }
+            }   
+        }
+        HorizontalLayout {
+            spacing: 10px;
+            Text {
+                vertical-alignment: center;
+                text: "FPS: " + root.fr;
+                font-size: 20px;
+                font-family: "Garamond";
+            }
+            Text {
+                horizontal-alignment: center;
+                text: root.timecode;
+                font-size: 100px;
+                font-family: "7-segment";
+            }
+        }
+    }
+}

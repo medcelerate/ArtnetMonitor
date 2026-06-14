@@ -1,0 +1,18 @@
+[package]
+name = "ArtnetMonitor"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+getifaddrs = "0.6.0"
+slint = { version = "1.16.1", features = ["renderer-skia", "unstable-winit-030"]}
+
+
+[build-dependencies]
+slint-build = { version = "1.16.1" }
+winres = "0.1"
+
+# Note: the prolink-proxy Linux tool lives at tools/prolink-proxy/ as a
+# standalone crate so it does not pull in the main app's UI dep graph
+# (Slint / Skia / Sentry). Build it with:
+#   cd tools/prolink-proxy && cargo build --release
